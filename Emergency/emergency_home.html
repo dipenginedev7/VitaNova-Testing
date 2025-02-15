@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VITA NOVA - Emergency Assistance</title>
+    <link rel="icon" type="image/png" href="VITANOVA_Logo_CROP.png">
+    <script src="script.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: black;
+            text-align: center;
+        }
+
+        .navbar {
+            margin-top: 0px;
+            height: 144px;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 500px;
+            /* border: 1px solid gray; */
+            box-shadow: grey 14px 32px 43px -11px;
+            position: sticky;
+            top: 0px;
+            background-color: white;
+            z-index: 1000;
+        }
+
+        .nav ul {
+            list-style: none;
+            /* Removes bullet points */
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 50px;
+        }
+
+
+        .nav ul a {
+            text-decoration: none;
+            color: black;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* background-color: red; */
+            padding: 10px;
+            border-radius: 10px;
+            font-size: larger;
+        }
+
+        .logo img {
+            height: 149px;
+            width: 169px;
+            position: relative;
+            left: -59px;
+            mix-blend-mode: multiply;
+            padding: 10px;
+        }
+
+        @media only screen and (max-width: 1568px) {
+            .navbar {
+                gap: 120px;
+            }
+        }
+
+        ul a:hover {
+            background: linear-gradient(90deg, #00d1ff, #ff67a3);
+            color: white;
+            /* border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px; */
+            border-radius: 20px;
+
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .header {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .emergency-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-top: 20px;
+        }
+
+        .option {
+            background: white;
+            padding: 20px;
+            border: 1px solid grey;
+            border-radius: 10px;
+            box-shadow: 15px 15px 20px rgba(0, 8, 13, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .option:hover {
+            transform: scale(1.05);
+        }
+
+        .option img {
+            width: 70px;
+            margin-bottom: 10px;
+        }
+
+        .emergency-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 12px 18px;
+            background: linear-gradient(90deg, #00c9ff, #ff67a3);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .emergency-btn:hover {
+            background: linear-gradient(90deg, #ff67a3, #00c9ff);
+        }
+
+        .chatbot {
+            margin-top: 30px;
+        }
+
+        .chatbox {
+            display: none;
+            margin-top: 10px;
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .chatbot-btn {
+            background: #00c9ff;
+            padding: 10px 15px;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .chatbot-btn:hover {
+            background: #ff67a3;
+        }
+
+        .language-selector {
+            margin-top: 20px;
+        }
+
+        select {
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+            background: #b78dac;
+            color: white;
+        }
+    </style>
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    window.open(`https://www.google.com/maps/search/hospital/@${position.coords.latitude},${position.coords.longitude},15z`);
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+        function toggleChatbot() {
+            var chatbox = document.getElementById("chatbox");
+            chatbox.style.display = chatbox.style.display === "block" ? "none" : "block";
+        }
+    </script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="VITANOVA_Logo_CROP.png" alt="logo">
+        </div>
+        <div class="hamburger" aria-label="Menu" aria-expanded="false">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+        <div class="nav">
+            <ul>
+                <li><a href="/Home/index.html">Home</a></li>
+                <li><a href="/Pharmacy/index.html">Pharmacy</a></li>
+                <li><a href="#">Telemedicine</a></li>
+                <li><a href="/Appointment/index.html">Appointments</a></li>
+                <li><a href="/Emergency/emergency_home.html">Emergency</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="header">🚨 Emergency Assistance</div>
+        <p>For immediate medical help, contact emergency services or find the nearest hospital.</p>
+
+        <div class="emergency-options">
+            <div class="option">
+                <img src="emergency-call.png" alt="Call 112">
+                <h3>Call Emergency</h3>
+                <a href="tel:112" class="emergency-btn">📞 Call 112</a>
+            </div>
+            <div class="option">
+                <img src="ambulance.png" alt="Ambulance">
+                <h3>Request Ambulance</h3>
+                <a href="tel:108" class="emergency-btn">🚑 Call 108</a>
+            </div>
+            <div class="option">
+                <img src="hospital.png" alt="Find Hospital">
+                <h3>Find Nearest Hospital</h3>
+                <button class="emergency-btn" onclick="getLocation()">🏥 Locate</button>
+            </div>
+            <div class="option">
+                <img src="woman-helpline.png" alt="Women Helpline">
+                <h3>Women’s Helpline</h3>
+                <a href="tel:1091" class="emergency-btn">📞 Call 1091</a>
+            </div>
+            <div class="option">
+                <img src="child-helpline.png" alt="Child Helpline">
+                <h3>Child Helpline</h3>
+                <a href="tel:1098" class="emergency-btn">📞 Call 1098</a>
+            </div>
+            <div class="option">
+                <img src="blood-bank.png" alt="Blood Bank">
+                <h3>Find Blood Bank / Donate Blood</h3>
+                <button class="emergency-btn" onclick="findBloodBank()">🩸 Locate</button>
+            </div>
+
+            <script>
+                function findBloodBank() {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function (position) {
+                            let latitude = position.coords.latitude;
+                            let longitude = position.coords.longitude;
+                            let googleMapsUrl = `https://www.google.com/maps/search/blood+bank+near+me/@${latitude},${longitude},15z`;
+                            window.open(googleMapsUrl, "_blank");
+                        }, function (error) {
+                            alert("Geolocation is not supported or permission denied. Try searching manually.");
+                        });
+                    } else {
+                        alert("Geolocation is not supported by this browser.");
+                    }
+                }
+            </script>
+        </div>
+
+        <div class="chatbot">
+            <h3>🗨️ Need Assistance?</h3>
+            <button class="chatbot-btn" onclick="toggleChatbot()">💬 Chat Now</button>
+            <div id="chatbox" class="chatbox">
+                <iframe src="https://www.chatbot.com/embed-code" frameborder="0" width="100%" height="300"></iframe>
+            </div>
+        </div>
+
+        <div class="language-selector">
+            <label for="language">🌍 Choose Language:</label>
+            <select id="language">
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+                <option value="bn">বাংলা</option>
+                <option value="ta">தமிழ்</option>
+                <option value="te">తెలుగు</option>
+            </select>
+        </div>
+    </div>
+</body>
+
+</html>
