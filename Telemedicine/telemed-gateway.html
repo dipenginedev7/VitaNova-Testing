@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Speciality & Payment</title>
+  <link rel="icon" type="image/png" href="VITANOVA_Logo_CROP.png">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f3f4f6;
+    }
+  </style>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+  <header class="bg-blue-600 text-white text-center py-4">
+    <h1 class="text-2xl font-bold">Choose Doctor Speciality & Make Payment</h1>
+  </header>
+
+  <main class="container mx-auto p-4">
+    <form id="speciality-payment-form" class="space-y-4">
+      <div>
+        <label for="speciality" class="block text-lg font-medium mb-2">Select Speciality</label>
+        <select id="speciality" name="speciality" class="w-full p-2 border rounded">
+          <option value="General Physician">General Physician</option>
+          <option value="Cardiologist">Cardiologist</option>
+          <option value="Dermatologist">Dermatologist</option>
+          <option value="Pediatrician">Pediatrician</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="payment" class="block text-lg font-medium mb-2">Payment Amount (Minimum: 800 Rupees)</label>
+        <input type="number" id="payment" name="payment" placeholder="Enter Payment Amount" class="w-full p-2 border rounded" required>
+      </div>
+
+      <div>
+        <button type="button" id="pay-button" class="bg-green-500 text-white px-4 py-2 rounded">Proceed to Payment</button>
+      </div>
+    </form>
+  </main>
+
+  <footer class="bg-gray-800 text-white text-center py-4">
+    <p>Secure Payment for Telemedicine Consultation</p>
+  </footer>
+
+  <script>
+    document.getElementById('pay-button').addEventListener('click', () => {
+      const speciality = document.getElementById('speciality').value;
+      const payment = document.getElementById('payment').value;
+
+      if (!speciality || payment < 800) {
+        alert('Please select a speciality and enter a valid payment amount (minimum 800 rupees).');
+        return;
+      }
+
+      const options = {
+        "key": "rzp_test_tJmX9fauLrxxCn", // Replace with your Razorpay API Key
+        "amount": payment * 100, // Convert to paise
+        "currency": "INR",
+        "name": "Telemedicine Consultation",
+        "description": `Doctor Speciality: ${speciality}`,
+        "handler": function (response) {
+          alert(`Payment successful. Payment ID: ${response.razorpay_payment_id}`);
+          window.location.href = `videocall.html?speciality=${encodeURIComponent(speciality)}`;
+        },
+        "prefill": {
+          "name": "Patient Name",
+          "email": "patient@example.com",
+          "contact": ""
+        },
+        "theme": {
+          "color": "#3399cc"
+        }
+      };
+
+      const paymentObject = new Razorpay(options);
+      paymentObject.open();
+    });
+  </script>
+</body>
+</html>
