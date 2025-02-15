@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - VitaNova</title>
+    <link rel="icon" type="image/png" href="VITANOVA_Logo_CROP.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-green-900 via-teal-700 to-indigo-500 h-screen flex items-center justify-center">
+    <div class="bg-white shadow-2xl rounded-lg w-full max-w-lg p-6">
+        <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 text-center mb-4 tracking-wider">VitaNova</h1>
+        <h2 class="text-xl font-semibold text-center text-gray-800 mb-3">Join the Future of Health</h2>
+        <p class="text-center text-gray-600 text-sm mb-5">Sign up to access smarter healthcare solutions</p>
+
+        <form action="#" method="POST" id="signup-form">
+            <div class="mb-4">
+                <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                <input 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-gray-700 focus:ring-cyan-500 focus:border-cyan-500" 
+                    placeholder="Enter your full name" 
+                    required>
+            </div>
+
+            <div class="mb-4">
+                <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-gray-700 focus:ring-cyan-500 focus:border-cyan-500" 
+                    placeholder="Enter your email" 
+                    required>
+            </div>
+
+            <div class="mb-4">
+                <label for="mobile" class="block text-sm font-medium text-gray-700">Mobile Number</label>
+                <input 
+                    type="tel" 
+                    id="mobile" 
+                    name="mobile" 
+                    class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-gray-700 focus:ring-cyan-500 focus:border-cyan-500" 
+                    placeholder="Enter your mobile number" 
+                    required>
+            </div>
+
+            <div class="mb-4">
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    class="mt-1 block w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md text-gray-700 focus:ring-cyan-500 focus:border-cyan-500" 
+                    placeholder="Create a password" 
+                    required>
+            </div>
+
+            <button 
+                type="submit" 
+                class="w-full py-2 px-4 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 hover:from-pink-500 hover:to-cyan-500 text-white font-bold rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 mb-3">
+                Sign Up
+            </button>
+
+            <div class="flex items-center justify-center mb-5">
+                <div class="w-full border-t border-gray-300"></div>
+                <span class="px-2 text-sm text-gray-600">or</span>
+                <div class="w-full border-t border-gray-300"></div>
+            </div>
+
+            <button 
+                type="button" 
+                class="w-full py-2 px-4 bg-white border border-gray-300 rounded-md text-gray-700 font-medium shadow-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 flex items-center justify-center">
+                <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google Logo" class="w-5 h-5 mr-2">
+                Sign Up with Google
+            </button>
+        </form>
+
+        <p class="mt-5 text-sm text-center text-gray-600">Already have an account? 
+            <a href="login.html" class="text-pink-500 font-semibold hover:underline">Log in here</a>
+        </p>
+    </div>
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const fullName = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const mobile = document.getElementById('mobile').value;
+            const password = document.getElementById('password').value;
+    
+            // Check if any field is empty (optional)
+            if (!fullName || !email || !mobile || !password) {
+                alert("All fields are required");
+                return;
+            }
+    
+            const response = await fetch('http://localhost:3000/api/auth/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ fullName, email, mobile, password }), // Use fullName here
+            });
+    
+            const data = await response.json();
+            alert(data.message);
+        });
+    </script>
+</body>
+</html>
